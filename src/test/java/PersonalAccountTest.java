@@ -1,8 +1,6 @@
-import PageObject.*;
+import pageObject.*;
 import com.codeborne.selenide.Condition;
-import com.codeborne.selenide.Configuration;
 import jdk.jfr.Description;
-import org.junit.Before;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -11,11 +9,6 @@ import static com.codeborne.selenide.Selenide.page;
 import static org.junit.Assert.assertTrue;
 
 public class PersonalAccountTest {
-
-    @Before
-    public void browserSettings() {
-        Configuration.startMaximized = true;
-    }
 
     @AfterEach
     public void logout() {

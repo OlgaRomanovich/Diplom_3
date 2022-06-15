@@ -1,8 +1,7 @@
-import PageObject.LoginPage;
-import PageObject.RegisterPage;
-import com.codeborne.selenide.Configuration;
+import pageObject.LoginPage;
+import pageObject.RegisterPage;
 import jdk.jfr.Description;
-import org.junit.Before;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import static com.codeborne.selenide.Condition.enabled;
@@ -11,10 +10,7 @@ import static com.codeborne.selenide.Selenide.page;
 import static org.junit.Assert.assertTrue;
 
 public class RegistrationTest {
-    @Before
-    public void browserSettings() {
-        Configuration.startMaximized = true;
-    }
+
 
     @Test
     @Description("Registration with invalid password")
@@ -29,13 +25,13 @@ public class RegistrationTest {
     @Test
     @Description("Successful registration with valid creds")
     @DisplayName("Successful registration with valid creds")
-    public void successfulRegistration() {
+    public void successfulRegistration() throws InterruptedException {
         RegisterPage registerPage = open("https://stellarburgers.nomoreparties.site/register", RegisterPage.class);
-        registerPage.userConfirmation("IvanPetrov", "petrov31@mail.ru", "qwerty");
+        registerPage.userConfirmation("Ivan Ivanov", "petrov3211@mail.ru", "qwerty");
         registerPage.registrationButton.shouldBe(enabled);
         registerPage.registrationButtonClick();
         LoginPage loginPage = page(LoginPage.class);
-        loginPage.loginButton.shouldBe(enabled);
-        assertTrue(loginPage.loginButton.isDisplayed());
+        Thread.sleep(5000);
+        Assertions.assertTrue(loginPage.loginButton.isDisplayed());
     }
 }

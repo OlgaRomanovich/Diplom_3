@@ -1,18 +1,14 @@
-import PageObject.*;
+import pageObject.*;
 import com.codeborne.selenide.Condition;
-import com.codeborne.selenide.Configuration;
 import jdk.jfr.Description;
-import org.junit.Before;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import static com.codeborne.selenide.Selenide.open;
 import static com.codeborne.selenide.Selenide.page;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
-public class  LoginTest {
-    @Before
-    public void browserSettings() {
-        Configuration.startMaximized = true;
-    }
+public class LoginTest {
 
     @AfterEach
     public void logout() {
@@ -34,21 +30,19 @@ public class  LoginTest {
         MainPage mainPage1 = page(MainPage.class);
         mainPage.createOrderButton.shouldBe(Condition.exist);
         assertTrue(mainPage1.createOrderButton.isDisplayed()); //нажимается кнопка здесь.
-
     }
 
     @Test
     @Description("Login from personal account page")
     @DisplayName("Login from personal account page")
     public void successfulLoginFromPersonalAccountPage() {
-        Header header= open("https://stellarburgers.nomoreparties.site", Header.class);
+        Header header = open("https://stellarburgers.nomoreparties.site", Header.class);
         header.personalAccountButtonClick();
         LoginPage loginpage = page(LoginPage.class);
         loginpage.userLoginConfirmation("olga@mail.ru", "qwerty");
         MainPage mainPage = page(MainPage.class);
         mainPage.createOrderButton.shouldBe(Condition.exist);
         assertTrue(mainPage.createOrderButton.isDisplayed());
-
     }
 
     @Test
@@ -62,8 +56,6 @@ public class  LoginTest {
         MainPage mainPage = page(MainPage.class);
         mainPage.createOrderButton.shouldBe(Condition.exist);
         assertTrue(mainPage.createOrderButton.isDisplayed());
-
-
     }
 
     @Test
@@ -72,7 +64,6 @@ public class  LoginTest {
     public void successfulLoginFromRecoverPasswordPage() {
         LoginPage loginPage = open("https://stellarburgers.nomoreparties.site/login", LoginPage.class);
         loginPage.recoverPasswordButton.shouldBe(Condition.exist);
-        //loginPage.recoverPasswordButton.shouldBe(Condition.exist);
         loginPage.recoverPasswordButtonClick();
         ForgotPasswordPage forgotPasswordPage = page(ForgotPasswordPage.class);
         forgotPasswordPage.loginButtonClick();
